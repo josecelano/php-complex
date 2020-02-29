@@ -1,0 +1,27 @@
+{
+    "name": "josecelano/php-complex",
+    "description": "PHP Complex class implemented with arbitrary-precision decimal arithmetic",
+    "type": "library",
+    "require": {
+        "php-decimal/php-decimal": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "authors": [
+        {
+            "name": "Jose Celano",
+            "email": "josecelano@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Complex\\": "src/Complex"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Complex\\": "tests/Complex"
+        }
+    }
+}
