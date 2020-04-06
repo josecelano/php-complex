@@ -1,8 +1,5 @@
 FROM php:7.4-cli
 
-COPY . /usr/src/app
-WORKDIR /usr/src/app
-
 # Install git and unzip extensions needed by composer
 RUN apt-get update \
     && apt-get upgrade -y \
@@ -17,5 +14,7 @@ RUN install-php-extensions zip decimal
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && chmod +x /usr/local/bin/composer \
     && composer --version
+
+WORKDIR /usr/src/app
 
 CMD [ "./vendor/bin/phpunit" ]

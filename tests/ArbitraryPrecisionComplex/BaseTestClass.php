@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Complex;
+namespace Tests\ArbitraryPrecisionComplex;
 
 use PHPUnit\Framework\TestCase;
 
