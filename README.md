@@ -45,6 +45,5 @@ docker run -it --rm \
 
 ## TODO
 
-* pow
-* add
-* ...
+* pow operation
+* allow to define precision for each complex instance

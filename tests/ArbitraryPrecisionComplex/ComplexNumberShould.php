@@ -63,21 +63,25 @@ class ComplexNumberShould extends BaseTestClass {
             // (0,1) -> PI/2
             [new Complex(DecimalFactory::from(0), DecimalFactory::from(1)), Pi::value()->div(2)],
             // (0,-1) -> -(PI/2)
-            [new Complex(DecimalFactory::from(0), DecimalFactory::from(-1)), Pi::value()->div(-2)],
+            [new Complex(DecimalFactory::from(0), DecimalFactory::from(-1)), Pi::value()->div(2)->negate()],
 
             // real positive
 
-            // (1,1) -> 0.78539816339745
-            [new Complex(DecimalFactory::from(1), DecimalFactory::from(1)), DecimalFactory::from('0.78539816339745')],
-            // (1,-1) -> -0.78539816339745
-            [new Complex(DecimalFactory::from(1), DecimalFactory::from(-1)), DecimalFactory::from('-0.78539816339745')],
+            // (1,1) -> PI/4
+            [new Complex(DecimalFactory::from(1), DecimalFactory::from(1)), Pi::value()->div(4)],
+            // (1,-1) -> -PI/4
+            [new Complex(DecimalFactory::from(1), DecimalFactory::from(-1)), Pi::value()->div(4)->negate()],
+            // (1,0) -> 0
+            [new Complex(DecimalFactory::from(1), DecimalFactory::from(0)), DecimalFactory::from(0)],
 
             // real negative
 
-            // (-1,1) -> 2.356194490192343238462643383
-            [new Complex(DecimalFactory::from(-1), DecimalFactory::from(1)), DecimalFactory::from('2.356194490192343238462643383')],
-            // (-1,-1) -> -2.356194490192343238462643383
-            [new Complex(DecimalFactory::from(-1), DecimalFactory::from(-1)), DecimalFactory::from('-2.356194490192343238462643383')],
+            // (-1,1) -> 3*PI/4
+            [new Complex(DecimalFactory::from(-1), DecimalFactory::from(1)), Pi::value()->mul(3)->div(4)],
+            // (-1,-1) -> -3*PI/4
+            [new Complex(DecimalFactory::from(-1), DecimalFactory::from(-1)), Pi::value()->mul(3)->div(4)->negate()],
+            // (-1,0) -> PI
+            [new Complex(DecimalFactory::from(-1), DecimalFactory::from(0)), Pi::value()],
         ];
     }
 
@@ -110,12 +114,22 @@ class ComplexNumberShould extends BaseTestClass {
     }
 
     /**
-     * This test is used to check a number with bigger precision than the max float precision for 64 bits
+     * This test is used to check a number with bigger precision than the max float precision for 64 bits.
+     * The float data type can commonly store a value up to 1.7976931348623E+308 (platform dependent),
+     * and have a maximum precision of 14 digits.
+     *
      * @test
      */
     public function returns_the_theta_of_a_complex_number_beyond_float_precision() {
-        $z = new Complex(DecimalFactory::from(-1), DecimalFactory::from(0));
-        $this->assertEquals(Pi::value()->toString(), $z->theta()->toString());
+
+        // Theta of (0,0) is 0
+        $z0 = new Complex(DecimalFactory::from(0, 56), DecimalFactory::from(0, 56));
+
+        // Theta of (-1,0) is PI
+        $z180 = new Complex(DecimalFactory::from(-1, 56), DecimalFactory::from(0, 56));
+
+        $this->assertEquals(DecimalFactory::from(0, 56), $z0->theta()->toString());
+        $this->assertEquals(Pi::value()->toString(), $z180->theta()->toString());
     }
 }
 

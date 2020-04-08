@@ -2,14 +2,17 @@
 
 namespace ArbitraryPrecisionComplex;
 
+/**
+ * Class DecimalFunction
+ * @package ArbitraryPrecisionComplex
+ */
 class DecimalFunction {
     /**
-     * PHP atan function returns a float, so we cannot use it.
      * @param \Decimal\Decimal $x
      * @return \Decimal\Decimal
      */
     public static function atan(\Decimal\Decimal $x): \Decimal\Decimal {
-        return self::atanUsingStandardPHPFunction($x);
+        return self::atanUsingLinuxBCCommand($x);
     }
 
     /**
@@ -41,5 +44,24 @@ class DecimalFunction {
             $sum = $sum->add($seriesItem);
         }
         return $sum;
+    }
+
+    /**
+     * Sample for atan(1) and precision 28: echo "scale=28;a(1)" | bc -lq
+     * @param \Decimal\Decimal $x
+     * @return \Decimal\Decimal
+     */
+    public static function atanUsingLinuxBCCommand(\Decimal\Decimal $x) {
+        $value = shell_exec('echo "scale=' . $x->precision() . ';a(' . $x->toString() . ')" | bc -lq');
+
+        // Remove last line break
+        $value = rtrim($value);
+
+        // Add leading zero
+        if (substr($value, 0, 1) == '.') {
+            $value = '0' . $value;
+        }
+
+        return DecimalFactory::from($value);
     }
 }

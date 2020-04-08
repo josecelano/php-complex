@@ -12,6 +12,10 @@ class Complex {
     private $imaginary;
 
     public function __construct(Decimal $real, Decimal $imaginary) {
+        // TODO: check precision is the same for both parts
+        if ($real->precision() != $imaginary->precision()) {
+            throw new \InvalidArgumentException('Real and imaginary parts must have the same precision');
+        }
         $this->real = $real;
         $this->imaginary = $imaginary;
     }

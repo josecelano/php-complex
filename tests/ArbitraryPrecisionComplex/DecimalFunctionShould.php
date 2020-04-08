@@ -8,7 +8,7 @@ use Decimal\Decimal;
 class DecimalFunctionShould extends BaseTestClass {
     /**
      * @test
-     * @dataProvider atan_samples
+     * @dataProvider atan_samples_precision_28
      * @param $number
      */
     public function should_calculate_the_arc_tangent_of_a_real_number_with_standard_php_atan_function($number) {
@@ -23,7 +23,7 @@ class DecimalFunctionShould extends BaseTestClass {
 
     /**
      * @test
-     * @dataProvider atan_samples
+     * @dataProvider atan_samples_precision_28
      * @param $number
      * @param $atanWithMaclaurin
      */
@@ -35,11 +35,26 @@ class DecimalFunctionShould extends BaseTestClass {
         );
     }
 
-    public function atan_samples() {
+    /**
+     * @test
+     * @dataProvider atan_samples_precision_28
+     * @param $number
+     * @param $atanWithMaclaurin
+     * @param $atanWithBCCommand
+     */
+    public function should_calculate_the_arc_tangent_of_a_real_number_using_linux_bc_command($number, $atanWithMaclaurin, $atanWithBCCommand) {
+
+        $this->assertEquals(
+            $atanWithBCCommand,
+            DecimalFunction::atanUsingLinuxBCCommand(new Decimal($number))->toString()
+        );
+    }
+
+    public function atan_samples_precision_28() {
         return [
-            [0, '0E-31'], // 0
-            [1, '0.7856479135848857627252819354'], // PI/4
-            [-1, '-0.7856479135848857627252819354'],
+            [0, '0E-31', '0'], // 0
+            [1, '0.7856479135848857627252819354', '0.7853981633974483096156608458'], // PI/4
+            [-1, '-0.7856479135848857627252819354', '-0.7853981633974483096156608458'],
         ];
     }
 }
