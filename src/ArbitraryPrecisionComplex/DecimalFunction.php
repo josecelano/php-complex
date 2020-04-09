@@ -50,9 +50,48 @@ class DecimalFunction {
      * Sample for atan(1) and precision 28: echo "scale=28;a(1)" | bc -lq
      * @param \Decimal\Decimal $x
      * @return \Decimal\Decimal
+     * @throws \Exception
      */
     public static function atanUsingLinuxBCCommand(\Decimal\Decimal $x) {
-        $value = shell_exec('echo "scale=' . $x->precision() . ';a(' . $x->toString() . ')" | bc -lq');
+        return self::callBCFunction($x, 'a');
+    }
+
+    /**
+     * Sample for sin(1) and precision 28: echo "scale=28;s(1)" | bc -lq
+     * @param \Decimal\Decimal $x
+     * @return \Decimal\Decimal
+     * @throws \Exception
+     */
+    public static function sin(\Decimal\Decimal $x) {
+        return self::callBCFunction($x, 's');
+    }
+
+    /**
+     * Sample for cos(1) and precision 28: echo "scale=28;s(1)" | bc -lq
+     * @param \Decimal\Decimal $x
+     * @return \Decimal\Decimal
+     * @throws \Exception
+     */
+    public static function cos(\Decimal\Decimal $x) {
+        return self::callBCFunction($x, 'c');
+    }
+
+    /**
+     * http://manpages.ubuntu.com/manpages/bionic/en/man1/bc.1.html (MATH LIBRARY)
+     * @param \Decimal\Decimal $x
+     * @param $functionName
+     * @return \Decimal\Decimal
+     * @throws \Exception
+     */
+    private static function callBCFunction(\Decimal\Decimal $x, $functionName) {
+
+        $functions = ['s', 'c', 'a', 'l', 'e', 'j'];
+
+        if (!in_array($functionName, $functions)) {
+            throw new \Exception('InvalidBC math library function');
+        }
+
+        $value = shell_exec('echo "scale=' . $x->precision() . ';' . $functionName . '(' . $x->toString() . ')" | bc -lq');
 
         // Remove last line break
         $value = rtrim($value);

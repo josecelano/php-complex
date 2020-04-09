@@ -20,6 +20,10 @@ class DecimalFactory {
         return new \Decimal\Decimal('0', $precision);
     }
 
+    public static function one(int $precision = self::DEFAULT_PRECISION): \Decimal\Decimal {
+        return new \Decimal\Decimal('1', $precision);
+    }
+
     public static function pi(int $precision = self::DEFAULT_PRECISION): \Decimal\Decimal {
         return new \Decimal\Decimal(Pi::value($precision), $precision);
     }

@@ -131,5 +131,55 @@ class ComplexNumberShould extends BaseTestClass {
         $this->assertEquals(DecimalFactory::from(0, 56), $z0->theta()->toString());
         $this->assertEquals(Pi::value()->toString(), $z180->theta()->toString());
     }
+
+    /**
+     * @test
+     * @dataProvider some_pow_result_examples
+     * @param Complex $z
+     * @param $power
+     * @param Complex $expectedResult
+     * @throws \Exception
+     */
+    public function implement_exponential_function(Complex $z, $power, Complex $expectedResult) {
+        $result = $z->pow($power);
+
+        /*
+        // DEBUG
+        echo "\nResult:\n";
+        var_dump($result->getReal()->toString(), $result->getImaginary()->toString());
+        echo "Expected Result:\n";
+        var_dump($expectedResult->getReal()->toString(), $expectedResult->getImaginary()->toString());
+        echo "\n";
+        */
+
+        /* Calculate result for test case with third party library
+        $c = new \Complex\Complex(1,1);
+        $p = $c->pow(2);
+        var_dump($p);
+        die;
+        */
+
+        $delta = '0.00000000000000000000000001';
+        $this->assertTrue($result->compareTo($expectedResult, DecimalFactory::from($delta)));
+    }
+
+    public function some_pow_result_examples() {
+        return [
+            // Real
+            [Complex::fromInt(1, 0), 0, Complex::fromInt(1, 0)], // (1)^0 = 1
+            [Complex::fromInt(1, 0), 1, Complex::fromInt(1, 0)], // (1)^1 = 1
+            [Complex::fromInt(2, 0), 0, Complex::fromInt(1, 0)], // (2)^0 = 1
+            [Complex::fromInt(2, 0), 1, Complex::fromInt(2, 0)], // (2)^1 = 2
+
+            // Imaginary
+            [Complex::fromInt(0, 1), 1, Complex::fromInt(0, 1)],  // (i)^1 = i
+            [Complex::fromInt(0, 1), 2, Complex::fromInt(-1, 0)], // (i)^2 = -1
+            [Complex::fromInt(0, 1), 3, Complex::fromInt(0, -1)], // (i)^3 = -i
+            [Complex::fromInt(0, 1), 4, Complex::fromInt(1, 0)], // (i)^4 = 1
+
+            [Complex::fromInt(1, 1), 1, Complex::fromInt(1, 1)], // (1,1)^1 = (1,1)
+            [Complex::fromInt(1, 1), 2, Complex::fromInt('1.2246467991474E-16', 2)], // (1,1)^2 = (1.2246467991474E-16,2)
+        ];
+    }
 }
 
