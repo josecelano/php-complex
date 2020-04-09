@@ -10,14 +10,11 @@ This is the arbitrary precision package being used:
 
 [php-decimal.io](https://php-decimal.io/)
 
-### Prerequisites
+## Prerequisites
 
-PHP
-```
-PHP 7.4
-```
+* PHP 7.4
 
-### Installation
+## Installation
 
 ```
 docker build -t php-complex .
@@ -45,5 +42,4 @@ docker run -it --rm \
 
 ## TODO
 
-* pow operation
-* allow to define precision for each complex instance
+* Allow to define precision for each complex instance
