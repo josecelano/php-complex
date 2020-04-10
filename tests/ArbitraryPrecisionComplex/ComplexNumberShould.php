@@ -18,13 +18,26 @@ class ComplexNumberShould extends BaseTestClass {
 
     /** @test */
     public function be_added_to_another_complex_number() {
+
+        // With integers
+
         $c1 = new Complex(new Decimal('1'), new Decimal('2'));
         $c2 = new Complex(new Decimal('3'), new Decimal('4'));
 
-        $c = $c1->add($c2);
+        $r1 = $c1->add($c2);
 
-        $this->assertTrue((new Decimal('4'))->equals($c->getReal()));
-        $this->assertTrue((new Decimal('6'))->equals($c->getImaginary()));
+        $this->assertTrue((new Decimal('4'))->equals($r1->getReal()));
+        $this->assertTrue((new Decimal('6'))->equals($r1->getImaginary()));
+
+        // With floats
+
+        $c3 = new Complex(new Decimal('0.1'), new Decimal('0.2'));
+        $c4 = new Complex(new Decimal('0.3'), new Decimal('0.4'));
+
+        $r2 = $c3->add($c4);
+
+        $this->assertTrue((new Decimal('0.4'))->equals($r2->getReal()));
+        $this->assertTrue((new Decimal('0.6'))->equals($r2->getImaginary()));
     }
 
     /** @test */
