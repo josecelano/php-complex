@@ -91,7 +91,11 @@ class DecimalFunction {
             throw new \Exception('InvalidBC math library function');
         }
 
-        $value = shell_exec('echo "scale=' . $x->precision() . ';' . $functionName . '(' . $x->toString() . ')" | bc -lq');
+        $precisionForCalculation = $x->precision();
+
+        $cmd = 'echo "scale=' . $precisionForCalculation . ';' . $functionName . '(' . $x->toString() . ')" | BC_LINE_LENGTH=0 bc -lq';
+        $output = shell_exec($cmd);
+        $value = $output;
 
         // Remove last line break
         $value = rtrim($value);
@@ -100,6 +104,17 @@ class DecimalFunction {
         if (substr($value, 0, 1) == '.') {
             $value = '0' . $value;
         }
+        if (substr($value, 0, 2) == '-.') {
+            $value = '-0' . substr($value, 1);
+        }
+
+        /*
+        // DEBUG
+        echo "\nCMD: $cmd";
+        echo "\nOUT: $output";
+        echo "VAL: $value";
+        echo "\n";
+        */
 
         return DecimalFactory::from($value);
     }
