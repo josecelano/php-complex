@@ -42,7 +42,7 @@ class Complex {
 
     public function compareTo(Complex $c, Decimal $delta): Bool {
         $realDiff = $this->getReal()->sub($c->getReal());
-        $imaginaryDiff = $this->getReal()->sub($c->getReal());
+        $imaginaryDiff = $this->getImaginary()->sub($c->getImaginary());
         return $realDiff < $delta && $imaginaryDiff < $delta;
     }
 
