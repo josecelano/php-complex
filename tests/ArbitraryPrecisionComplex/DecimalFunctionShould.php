@@ -41,6 +41,7 @@ class DecimalFunctionShould extends BaseTestClass {
      * @param $number
      * @param $atanWithMaclaurin
      * @param $atanWithBCCommand
+     * @throws \Exception
      */
     public function should_calculate_the_arc_tangent_of_a_real_number_using_linux_bc_command($number, $atanWithMaclaurin, $atanWithBCCommand) {
 

@@ -165,18 +165,27 @@ class ComplexNumberShould extends BaseTestClass {
 
     public function some_pow_result_examples() {
         return [
-            // Real
+            // Real positive
             [Complex::fromInt(1, 0), 0, Complex::fromInt(1, 0)], // (1)^0 = 1
             [Complex::fromInt(1, 0), 1, Complex::fromInt(1, 0)], // (1)^1 = 1
             [Complex::fromInt(2, 0), 0, Complex::fromInt(1, 0)], // (2)^0 = 1
             [Complex::fromInt(2, 0), 1, Complex::fromInt(2, 0)], // (2)^1 = 2
+            [Complex::fromStringNumber(0.5, 0), 0, Complex::fromStringNumber(1, 0)],    // (0.5)^0 = 1
+            [Complex::fromStringNumber(0.5, 0), 1, Complex::fromStringNumber(0.5, 0)],  // (0.5)^1 = 0.5
+            [Complex::fromStringNumber(0.5, 0), 2, Complex::fromStringNumber(0.25, 0)], // (0.5)^2 = 0.25
+
+            // Real negative
+            [Complex::fromInt(-1, 0), 0, Complex::fromInt(1, 0)], // (-1)^0 = 1
+            [Complex::fromInt(-1, 0), 1, Complex::fromInt(1, 0)], // (-1)^0 = 1
+            [Complex::fromInt(-1, 0), 2, Complex::fromInt(1, 0)], // (-1)^0 = 1
 
             // Imaginary
-            [Complex::fromInt(0, 1), 1, Complex::fromInt(0, 1)],  // (i)^1 = i
-            [Complex::fromInt(0, 1), 2, Complex::fromInt(-1, 0)], // (i)^2 = -1
-            [Complex::fromInt(0, 1), 3, Complex::fromInt(0, -1)], // (i)^3 = -i
-            [Complex::fromInt(0, 1), 4, Complex::fromInt(1, 0)], // (i)^4 = 1
+            [Complex::fromInt(0, 1), 1, Complex::fromInt(0, 1)],    // (i)^1 = i
+            [Complex::fromInt(0, 1), 2, Complex::fromInt(-1, 0)],   // (i)^2 = -1
+            [Complex::fromInt(0, 1), 3, Complex::fromInt(0, -1)],   // (i)^3 = -i
+            [Complex::fromInt(0, 1), 4, Complex::fromInt(1, 0)],    // (i)^4 = 1
 
+            // Complex
             [Complex::fromInt(1, 1), 1, Complex::fromInt(1, 1)], // (1,1)^1 = (1,1)
             [Complex::fromInt(1, 1), 2, Complex::fromInt('1.2246467991474E-16', 2)], // (1,1)^2 = (1.2246467991474E-16,2)
         ];

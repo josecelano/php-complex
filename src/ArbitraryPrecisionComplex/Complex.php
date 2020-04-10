@@ -15,6 +15,10 @@ class Complex {
         return new self(DecimalFactory::from($real), DecimalFactory::from($imaginary));
     }
 
+    public static function fromStringNumber(string $real, string $imaginary) {
+        return new self(DecimalFactory::from($real), DecimalFactory::from($imaginary));
+    }
+
     public function __construct(Decimal $real, Decimal $imaginary) {
         if ($real->precision() != $imaginary->precision()) {
             throw new \InvalidArgumentException('Real and imaginary parts must have the same precision');
