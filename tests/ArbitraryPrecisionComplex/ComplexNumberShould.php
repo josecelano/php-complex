@@ -189,8 +189,8 @@ class ComplexNumberShould extends BaseTestClass {
 
             // Real negative
             [Complex::fromInt(-1, 0), 0, Complex::fromInt(1, 0)], // (-1)^0 = 1
-            [Complex::fromInt(-1, 0), 1, Complex::fromInt(1, 0)], // (-1)^0 = 1
-            [Complex::fromInt(-1, 0), 2, Complex::fromInt(1, 0)], // (-1)^0 = 1
+            [Complex::fromInt(-1, 0), 1, Complex::fromInt(1, 0)], // (-1)^1 = 1
+            [Complex::fromInt(-1, 0), 2, Complex::fromInt(1, 0)], // (-1)^2 = 1
 
             // Imaginary
             [Complex::fromInt(0, 1), 1, Complex::fromInt(0, 1)],    // (i)^1 = i
