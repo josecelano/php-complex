@@ -10,6 +10,7 @@ class DecimalFunction {
     /**
      * @param \Decimal\Decimal $x
      * @return \Decimal\Decimal
+     * @throws \Exception
      */
     public static function atan(\Decimal\Decimal $x): \Decimal\Decimal {
         return self::atanUsingLinuxBCCommand($x);

@@ -84,7 +84,7 @@ class Complex {
             return $this->getReal()->toString() . $this->getImaginary()->toString() . 'i';
         }
 
-        return $this->getReal()->toString() . '+' .  $this->getImaginary()->toString() . 'i';
+        return $this->getReal()->toString() . '+' . $this->getImaginary()->toString() . 'i';
     }
 
     /**
@@ -154,5 +154,17 @@ class Complex {
         $i = $rPower->mul(DecimalFunction::sin($theta));
 
         return new Complex($r, $i);
+    }
+
+    /**
+     * @param Complex $c
+     * @return Complex
+     */
+    public function multiply(Complex $c) {
+
+        $real = ($this->real->mul($c->real))->sub($this->imaginary->mul($c->imaginary));
+        $imaginary = ($this->real->mul($c->imaginary))->add($this->imaginary->mul($c->real));
+
+        return self::fromStringNumber($real, $imaginary);
     }
 }
