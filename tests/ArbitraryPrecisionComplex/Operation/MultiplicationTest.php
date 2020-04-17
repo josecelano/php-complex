@@ -14,7 +14,7 @@ class MultiplicationTest extends BaseTestClass {
 
         $f = $c->multiply($r);
 
-        $this->complexEquals(Complex::fromInt(-52, -20), $f);
+        $this->assertComplexEquals(Complex::fromInt(-52, -20), $f);
     }
 
     /** @test */
@@ -24,7 +24,7 @@ class MultiplicationTest extends BaseTestClass {
 
         $f = $c->multiply($r);
 
-        $this->complexEquals(Complex::fromInt(16, 6), $f);
+        $this->assertComplexEquals(Complex::fromInt(16, 6), $f);
     }
 
     /** @test */
@@ -34,7 +34,7 @@ class MultiplicationTest extends BaseTestClass {
 
         $f = $c->multiply($r);
 
-        $this->complexEquals(Complex::fromInt(1, 21), $f);
+        $this->assertComplexEquals(Complex::fromInt(1, 21), $f);
     }
 }
 

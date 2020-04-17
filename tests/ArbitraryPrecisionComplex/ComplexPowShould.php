@@ -25,9 +25,9 @@ class ComplexPowShould extends BaseTestClass {
         $f2 = $c2->pow(2);
         $f3 = $c3->pow(2);
 
-        $this->assertEqualWithDelta($_1, $f1);
-        $this->assertEqualWithDelta($_1, $f2);
-        $this->assertEqualWithDelta($_1, $f3);
+        $this->assertComplexEqualsWithDelta($_1, $f1);
+        $this->assertComplexEqualsWithDelta($_1, $f2);
+        $this->assertComplexEqualsWithDelta($_1, $f3);
     }
 
     /** @test */
@@ -45,32 +45,8 @@ class ComplexPowShould extends BaseTestClass {
         $f1 = $c1->pow(2);
         $f2 = $c2->pow(2);
 
-        $this->assertNotEqualWithDelta($_1, $f1);
-        $this->assertNotEqualWithDelta($_1, $f2);
-    }
-
-    /**
-     * @param Complex $expected
-     * @param Complex $result
-     * @param string $delta
-     */
-    protected function assertEqualWithDelta(Complex $expected, Complex $result, $delta = '0.00000000000000000000001'): void {
-        $this->assertTrue(
-            $result->compareTo($expected, DecimalFactory::from($delta)),
-            sprintf("Result value %s is not equal to expected value %s", $result->__toString(), $expected->__toString())
-        );
-    }
-
-    /**
-     * @param Complex $expected
-     * @param Complex $result
-     * @param string $delta
-     */
-    protected function assertNotEqualWithDelta(Complex $expected, Complex $result, $delta = '0.00000000000000000000001'): void {
-        $this->assertFalse(
-            $result->compareTo($expected, DecimalFactory::from($delta)),
-            sprintf("Result value %s is equal to expected value %s", $result->__toString(), $expected->__toString())
-        );
+        $this->assertComplexNotEqualsWithDelta($_1, $f1);
+        $this->assertComplexNotEqualsWithDelta($_1, $f2);
     }
 }
 

@@ -84,7 +84,7 @@ class DecimalFunction {
      * @return \Decimal\Decimal
      * @throws \Exception
      */
-    private static function callBCFunction(\Decimal\Decimal $x, $functionName) {
+    public static function callBCFunction(\Decimal\Decimal $x, $functionName) {
 
         $functions = ['s', 'c', 'a', 'l', 'e', 'j'];
 
@@ -92,9 +92,9 @@ class DecimalFunction {
             throw new \Exception('InvalidBC math library function');
         }
 
-        $precisionForCalculation = $x->precision();
+        $scaleForCalculation = $x->precision() + 4;
 
-        $cmd = 'echo "scale=' . $precisionForCalculation . ';' . $functionName . '(' . $x->toString() . ')" | BC_LINE_LENGTH=0 bc -lq';
+        $cmd = 'echo "scale=' . $scaleForCalculation . ';' . $functionName . '(' . $x->toString() . ')" | BC_LINE_LENGTH=0 bc -lq';
         $output = shell_exec($cmd);
         $value = $output;
 
@@ -117,6 +117,6 @@ class DecimalFunction {
         echo "\n";
         */
 
-        return DecimalFactory::from($value);
+        return DecimalFactory::truncatedDecimal($value);
     }
 }

@@ -8,6 +8,7 @@ use ArbitraryPrecisionComplex\Pi;
 use Decimal\Decimal;
 
 class ComplexNumberShould extends BaseTestClass {
+
     /** @test */
     public function should_have_a_real_and_imaginary_parts() {
         $c = new Complex(new Decimal('-2'), new Decimal('1'));
@@ -63,8 +64,7 @@ class ComplexNumberShould extends BaseTestClass {
     public function returns_the_theta_of_a_complex_number(Complex $complex, Decimal $thetaExpected) {
         $theta = $complex->theta();
 
-        $this->assertTrue($thetaExpected->equals($theta),
-            "Expected theta " . $thetaExpected->toString() . " is not equal to: " . $theta);
+        $this->assertDecimalEqualsWithDelta($thetaExpected, $theta);
     }
 
     public function theta_samples() {
@@ -172,8 +172,7 @@ class ComplexNumberShould extends BaseTestClass {
         die;
         */
 
-        $delta = '0.00000000000000000000000001';
-        $this->assertTrue($result->compareTo($expectedResult, DecimalFactory::from($delta)));
+        $this->assertComplexEqualsWithDelta($expectedResult, $result);
     }
 
     public function some_pow_result_examples() {
