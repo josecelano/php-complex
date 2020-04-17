@@ -2,7 +2,7 @@
 
 I'm working on a PHP Fractal kata:
 
-[PHP Mandelbrot Kata](https://github.com/HyveInnovate/mandelbrot-kata/tree/php-solution1)
+[PHP Mandelbrot Kata](https://github.com/josecelano/php-mandelbrot-arbitrary-precision)
 
 In order to get be able to zoom in the final Mandelbrot Set image as much as I want I need arbitrary precision for some complex number operations. In this package I'have implemented only the operations needed.
 
